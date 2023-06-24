@@ -7,7 +7,7 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - .:/app/product
+      - .:/app
     command: 'php artisan serve --host=0.0.0.0'
     depends_on:
       - product_db
@@ -16,11 +16,11 @@ services:
     image: mysql
     restart: always
     environment:
-      MYSQL_DATEBASE: product
+      MYSQL_DATABASE: product
       MYSQL_USER: laravel
       MYSQL_PASSWORD: laravel
       MYSQL_ROOT_PASSWORD: laravel
     volumes:
       - ./storage/dbdata:/var/lib/mysql
     ports:
-      - 3306:3306
+      - 33063:3306

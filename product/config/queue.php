@@ -71,6 +71,17 @@ return [
             'after_commit' => false,
         ],
 
+        'kafka' => [
+            'driver' => 'kafka',
+            'queue' => env('KAFKA_QUEUE', 'main_queue'),
+            'bootstrap_servers' => env('BOOTSTRAP_SERVERS'),
+            'sercurity_protocol' => env('SERCURIRTY_PROTOCOL'),
+            'sasl_mechanisms' => env('SASL_MECHANISMS'),
+            'sasl_username' => env('SASL_USERNAME'),
+            'sasl_password' => env('SASL_PASSWORD'),
+            'group_id' => env('GROUP_ID'),
+        ]
+
     ],
 
     /*
