@@ -8,7 +8,6 @@ class KafkaConnector implements ConnectorInterface
 {
     public function connect(array $config)
     {
-        // TODO
         $conf = new Conf();
         $conf->set("bootstrap.servers", $config['bootstrap_servers']);
         $conf->set("security.protocol", $config['security_protocol']);

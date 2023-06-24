@@ -50,7 +50,6 @@ class KafkaQueue extends Queue implements QueueConstract
 
                 default:
                     throw new \Exception($message->errstr(), $message->err);
-                    break;
             }
         } catch (\Exception $e) {
             var_dump($e->getMessage());
