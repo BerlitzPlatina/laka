@@ -4,6 +4,7 @@ namespace App\Kafka;
 
 use Illuminate\Contracts\Queue\Queue as QueueConstract;
 use Illuminate\Queue\Queue;
+use Illuminate\Support\Facades\Log;
 
 class KafkaQueue extends Queue implements QueueConstract
 {
@@ -21,6 +22,8 @@ class KafkaQueue extends Queue implements QueueConstract
     }
     public function push($job, $data = "", $queue = null)
     {
+        Log::debug('An informational message.');
+
         $topic = $this->producer->newTopic($queue);
         $topic->produce(RD_KAFKA_PARTITION_UA, 0, serialize($job));
         $this->producer->flush(5000);
@@ -35,6 +38,7 @@ class KafkaQueue extends Queue implements QueueConstract
     }
     public function pop($queue = null)
     {
+        Log::debug('An informational message.');
         $this->consumer->subscribe([$queue]);
         try {
             $message = $this->consumer->consume(130 * 1000);
@@ -44,8 +48,7 @@ class KafkaQueue extends Queue implements QueueConstract
                     $job = unserialize($message->payload);
                     $job->handle();
                     break;
-                case RD_KAFKA_RESP_ERR_TIMED_OUT:
-                    var_dump('Timeout');
+                case RD_KAFKA_RESP_ERR__TIMED_OUT:
                     break;
 
                 default:
@@ -53,6 +56,7 @@ class KafkaQueue extends Queue implements QueueConstract
                     break;
             }
         } catch (\Exception $e) {
+            Log::alert($e->getMessage());
             var_dump($e->getMessage());
         }
     }
