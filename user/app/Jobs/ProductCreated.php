@@ -29,6 +29,7 @@ class ProductCreated implements ShouldQueue
     public function handle(): void
     {
         //
+        var_dump('heelo');
         Product::create([
             "id" => $this->data['id'],
             "product_name" => $this->data['product_name'],

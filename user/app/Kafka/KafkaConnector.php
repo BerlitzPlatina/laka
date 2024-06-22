@@ -4,6 +4,7 @@ namespace App\Kafka;
 
 use Illuminate\Queue\Connectors\ConnectorInterface;
 use RdKafka\Conf;
+
 class KafkaConnector implements ConnectorInterface
 {
     public function connect(array $config)
